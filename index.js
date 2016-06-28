@@ -51,6 +51,10 @@ renderer.br = () => {
 	return '\n';
 }
 
+const linkRenderer = renderer.link.bind(renderer);
+renderer.link = href => {
+	return chalk.magenta(href);
+}
 
 let tipHeading = '';
 

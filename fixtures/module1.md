@@ -12,4 +12,4 @@ and code
 - - -
 tip4 with `inline code`
 - - -
-tip5 with **strong** _emphasis_
+tip5 with **strong** _emphasis_ http://link.com
