@@ -42,7 +42,6 @@ renderer.code = (text) => {
 
 const paragraphRenderer = renderer.paragraph.bind(renderer);
 renderer.paragraph = (text) => {
-	console.log(text);
 	return unescape(`\n${text}`);
 }
 
