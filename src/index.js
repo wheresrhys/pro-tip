@@ -6,13 +6,27 @@ const marked = require('marked');
 const chalk = require('chalk');
 const renderer = Object.create(new marked.Renderer());
 
+// copied from marked
+function unescape(html) {
+  return html.replace(/&([#\w]+);/g, function(_, n) {
+    n = n.toLowerCase();
+    if (n === 'colon') return ':';
+    if (n.charAt(0) === '#') {
+      return n.charAt(1) === 'x'
+        ? String.fromCharCode(parseInt(n.substring(2), 16))
+        : String.fromCharCode(+n.substring(1));
+    }
+    return '';
+  });
+}
+
 const headingRenderer = renderer.heading.bind(renderer);
 renderer.heading = (text, level) => {
 	if (level === 1) {
 		tipHeading = text;
 		return '';
 	} else {
-		return headingRenderer(text, level);
+		return unescape(headingRenderer(text, level));
 	}
 }
 
@@ -23,37 +37,38 @@ renderer.hr = () => {
 
 const codeRenderer = renderer.code.bind(renderer);
 renderer.code = (text) => {
-	return chalk.cyan(`\n\n${text}\n`);
+	return unescape(chalk.cyan(`\n\n${text}\n`));
 }
 
 const paragraphRenderer = renderer.paragraph.bind(renderer);
 renderer.paragraph = (text) => {
-	return `\n${text}`;
+	console.log(text);
+	return unescape(`\n${text}`);
 }
 
 const emRenderer = renderer.em.bind(renderer);
 renderer.em = (text) => {
-	return chalk.yellow(`${text}`);
+	return unescape(chalk.yellow(`${text}`));
 }
 
 const strongRenderer = renderer.strong.bind(renderer);
 renderer.strong = (text) => {
-	return chalk.underline.red(`${text}`);
+	return unescape(chalk.underline.red(`${text}`));
 }
 
 const codespanRenderer = renderer.codespan.bind(renderer);
 renderer.codespan = (text) => {
-	return chalk.cyan(`\`${text}\``);
+	return unescape(chalk.cyan(`\`${text}\``));
 }
 
 const brRenderer = renderer.br.bind(renderer);
 renderer.br = () => {
-	return '\n';
+	return unescape('\n');
 }
 
 const linkRenderer = renderer.link.bind(renderer);
 renderer.link = href => {
-	return chalk.magenta(href);
+	return unescape(chalk.magenta(href));
 }
 
 let tipHeading = '';

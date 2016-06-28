@@ -2,7 +2,7 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-const protips = require('./index');
+const protips = require('./src/index');
 const path = require('path');
 
 describe('protips', () => {
