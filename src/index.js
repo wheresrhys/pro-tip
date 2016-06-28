@@ -109,5 +109,7 @@ module.exports.all = function (...sources) {
 }
 
 module.exports.log = text => {
-	return console.log(text);
+	process.on('exit', () => {
+		console.log(text);
+	});
 }
