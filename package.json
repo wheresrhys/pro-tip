@@ -1,6 +1,6 @@
 {
   "name": "protips",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Output pro-tips for your dev tool",
   "main": "es5/index.js",
   "scripts": {
